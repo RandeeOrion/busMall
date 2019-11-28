@@ -51,6 +51,10 @@ function generateImages() {
   pic2.src = picArray[index2].src;
   pic2.title = picArray[index2].title;
   pic2.alt = picArray[index2].alt;
+  var index3 = randomIndex(picArray.length);
+  pic3.src = picArray[index3].src;
+  pic3.title = picArray[index3].title;
+  pic3.alt = picArray[index3].alt;
 }
 
 generateImages()
