@@ -1,18 +1,24 @@
 'use strict';
 
-var pic1 = document.getElementById('pic1');
-var pic2 = document.getElementById('pic2');
-var pic3 = document.getElementById('pic3');
+var pic1 = document.getElementById('img1');
+var pic2 = document.getElementById('img2');
+var pic3 = document.getElementById('img3');
 
 var picArray = [];
 
 function Picture(src, name) {
-  this.src = '.../images/${src}.jpg';
+  this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
 
   picArray.push(this);
 }
+
+function randomIndex(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+
 
 
 new Picture('bag', 'R2D2 suitcase');
@@ -36,3 +42,15 @@ new Picture('water-can', 'The perfect cacti garden watering can for those who li
 new Picture('wine-glass', 'Ever had friends over for drinks and needed a "Can one drive home?" test? Your problems are now solved with this wine glass.');
 new Picture('sweep', 'Its never too early to get your baby working for you. Introducing the baby sweeper onsie!');
 
+function generateImages() {
+  var index1 = randomIndex(picArray.length);
+  pic1.src = picArray[index1].src;
+  pic1.title = picArray[index1].title;
+  pic1.alt = picArray[index1].title;
+  var index2 = randomIndex(picArray.length);
+  pic2.src = picArray[index2].src;
+  pic2.title = picArray[index2].title;
+  pic2.alt = picArray[index2].alt;
+}
+
+generateImages()
