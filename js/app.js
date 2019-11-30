@@ -3,6 +3,7 @@
 var pic1 = document.getElementById('img1');
 var pic2 = document.getElementById('img2');
 var pic3 = document.getElementById('img3');
+var photos = document.getElementById('photos');
 
 var picArray = [];
 
@@ -10,6 +11,8 @@ function Picture(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
+  this.clicked = 0;
+  this.viewed = 0;
 
   picArray.push(this);
 }
@@ -47,14 +50,39 @@ function generateImages() {
   pic1.src = picArray[index1].src;
   pic1.title = picArray[index1].title;
   pic1.alt = picArray[index1].title;
+  picArray[index1].viewed++;
   var index2 = randomIndex(picArray.length);
   pic2.src = picArray[index2].src;
   pic2.title = picArray[index2].title;
   pic2.alt = picArray[index2].alt;
+  picArray[index2].viewed++;
   var index3 = randomIndex(picArray.length);
+  // while (index1 === index2 || index3) {
+  //   index2 = randomIndex(picArray.length);
+  //   index3 = randomIndex(picArray.length);
+  // }
   pic3.src = picArray[index3].src;
   pic3.title = picArray[index3].title;
   pic3.alt = picArray[index3].alt;
+  picArray[index3].viewed++;
+  console.table(picArray[index1]);
+
+  // while (index2 === index3) {
+  //   index3 = randomIndex(picArray.length);
+  // }
 }
 
-generateImages()
+function handleClick(event){
+  generateImages();
+  var vote = event.target.title;
+  for (var i = 0; i < picArray.length; i++)
+    if (vote === picArray[i].title){
+      picArray[i].clicked++;
+    }
+
+
+}
+
+
+photos.addEventListener('click', handleClick);
+handleClick();
