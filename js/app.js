@@ -3,7 +3,10 @@
 var pic1 = document.getElementById('img1');
 var pic2 = document.getElementById('img2');
 var pic3 = document.getElementById('img3');
-var photos = document.getElementById('photos');
+//var photos = document.getElementById('photos');
+var descriptor1 = document.getElementById('descriptor1');
+var descriptor2 = document.getElementById('descriptor2');
+var descriptor3 = document.getElementById('descriptor3');
 
 var picArray = [];
 
@@ -20,8 +23,6 @@ function Picture(src, name) {
 function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-
-
 
 
 new Picture('bag', 'R2D2 suitcase');
@@ -45,43 +46,61 @@ new Picture('water-can', 'The perfect cacti garden watering can for those who li
 new Picture('wine-glass', 'Ever had friends over for drinks and needed a "Can one drive home?" test? Your problems are now solved with this wine glass.');
 new Picture('sweep', 'Its never too early to get your baby working for you. Introducing the baby sweeper onsie!');
 
+// function generateImagesDRY(pic, index, descriptor){
+//   var index = randomIndex(picArray.length);
+//   pic.src = picArray[index].src;
+//   pic.title = picArray[index].title;
+//   pic.alt = picArray[index].title;
+//   descriptor1.textContent = picArray[index].title;
+//   picArray[index].viewed++;
+// }
+
 function generateImages() {
   var index1 = randomIndex(picArray.length);
   pic1.src = picArray[index1].src;
   pic1.title = picArray[index1].title;
   pic1.alt = picArray[index1].title;
+  descriptor1.textContent = picArray[index1].title;
   picArray[index1].viewed++;
+
+
   var index2 = randomIndex(picArray.length);
+  while (index1===index2) {
+    index2 = randomIndex(picArray.length);
+  }
   pic2.src = picArray[index2].src;
   pic2.title = picArray[index2].title;
   pic2.alt = picArray[index2].alt;
+  descriptor2.textContent = picArray[index2].title;
   picArray[index2].viewed++;
+
+
   var index3 = randomIndex(picArray.length);
-  // while (index1 === index2 || index3) {
-  //   index2 = randomIndex(picArray.length);
-  //   index3 = randomIndex(picArray.length);
-  // }
+  while(index3===index2||index3===index1){
+    index3 = randomIndex(picArray.length);
+  }
   pic3.src = picArray[index3].src;
   pic3.title = picArray[index3].title;
+  descriptor3.textContent = picArray[index3].title;
   pic3.alt = picArray[index3].alt;
   picArray[index3].viewed++;
   console.table(picArray[index1]);
-
-  // while (index2 === index3) {
-  //   index3 = randomIndex(picArray.length);
-  // }
 }
 
-function handleClick(event){
-  generateImages();
-  var vote = event.target.title;
-  for (var i = 0; i < picArray.length; i++)
+generateImages();
+  
+  function handleClick(event){
+    generateImages();
+    var vote = event.target.title;
+    for (var i = 0; i < picArray.length; i++)
     if (vote === picArray[i].title){
       picArray[i].clicked++;
     }
+    
+    
+  }
 
-
-}
+  console.table(this.viewed);
 
 
 photos.addEventListener('click', handleClick);

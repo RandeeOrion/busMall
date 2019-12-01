@@ -14,3 +14,15 @@ body {
 #img3 {
   height: 200px;
 }
+
+/* #photoDescriptors {
+  display: inline-block;
+  max-width: 250px;
+  height: auto;
+  text-align: center;
+} */
+
+#photos {
+  display: inline-block;
+  max-width: 300px;
+}
