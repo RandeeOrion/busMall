@@ -7,9 +7,12 @@ var photos = document.getElementById('photos');
 // var descriptorOne = document.getElementById('descriptorOne');
 // var descriptorTwo = document.getElementById('descriptorTwo');
 // var descriptorThree = document.getElementById('descriptorThree');
+var listLocation = document.getElementById('list');
 
 var picArray = [];
-var numberOfVotes = 0
+var numberOfVotes = 0;
+var clickedArray = [];
+var viewedArray = [];
 
 
 function Picture(src, title, name) {
@@ -41,8 +44,8 @@ function createPhotoArray() {
   new Picture('pen', 'Help the student in your life get work done while hse eats with pen utensils!', 'Utensil Pens');
   new Picture('pet-sweep', 'Are you dogs always leaving hair around tht you have to sweep up? Not anymore! PET SWEEP!', 'Pet-sweep');
   new Picture('scissors', 'Those loathsome connected pizza slices will be no more!', 'Pizza-Scissors');
-  new Picture('shark', 'Because who does not want to wake to the image of being eaten by a shark? Shark Sleeping Bag!','Shark Sleepingbag');
-  new Picture('tauntaun', 'For everyone who ever wanted to be Luke Skywalker, this Tauntaun sleeping bag is for you.','Tauntaun Sleeping Bag');
+  new Picture('shark', 'Because who does not want to wake to the image of being eaten by a shark? Shark Sleeping Bag!', 'Shark Sleepingbag');
+  new Picture('tauntaun', 'For everyone who ever wanted to be Luke Skywalker, this Tauntaun sleeping bag is for you.', 'Tauntaun Sleeping Bag');
   new Picture('unicorn', 'Just be careful, because unicorns are so pure, whoever consumes this meat will only live but a half life.', 'Unicorn Meat');
   new Picture('usb', 'For the sea loving computer nut in your life: Octopus USB.', 'USB Storage');
   new Picture('water-can', 'The perfect cacti garden watering can for those who live in the rain forest.', 'Self Watering Can');
@@ -87,23 +90,51 @@ createPhotoArray();
 generateImages();
 photos.addEventListener('click', handleClick);
 
-function handleClick(event){
-  generateImages();
+//this is pushing 400 times rather than 20. How do i get it to just push the number at each i?
+function makeClickedAndViewedArray(array) {
+  for (var i = 0; i < array.length; i++) {
+    clickedArray.push(array[i].clicked);
+    viewedArray.push(array[i].viewed);
+  }
+}
+
+function hide(elem){
+  elem.style.display = 'none';
+}
+
+function generateListResults() {
+  //create ulEL and liEL element variables append to ul and listLocation
+  var ulEl = document.createElement('ul');
+  for (var i = 0; i < picArray.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = `${picArray[i].name} ${picArray[i].clicked} clicked and ${picArray[i].viewed} viewed`;
+    ulEl.appendChild(liEl);
+  }
+  listLocation.appendChild(ulEl);
+}
+
+
+function handleClick(event) {
+  //generateImages();
   var vote = event.target.title;
   console.log(vote);
-  for(var i = 0; i < picArray.length; i++) {
-    if(vote === picArray[i].title){
+  for (var i = 0; i < picArray.length; i++) {
+    if (vote === picArray[i].title) {
       picArray[i].clicked++;
       numberOfVotes++;
-      console.log('this was clicked: ', picArray[i].title);
-      console.log(numberOfVotes, ' Number of Votes');
+      //console.log('this was clicked: ', picArray[i].title);
+      //console.log(numberOfVotes, ' Number of Votes');
     }
-    if(numberOfVotes === 25){
-      photos.removeEventListener('click', handleClick);
+    if (numberOfVotes === 25) {
+      hide(listLocation);
+      //photos.removeEventListener('click', handleClick);
+      // makeClickedAndViewedArray(picArray);
+      // console.table('clicked array', clickedArray);
+      // console.table('viewed array', viewedArray);
     }
   }
   generateImages();
-  console.table(picArray);
+  generateListResults();
 }
 
 
