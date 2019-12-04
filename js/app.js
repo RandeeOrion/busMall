@@ -98,7 +98,7 @@ function makeClickedAndViewedArray(array) {
   }
 }
 
-function hide(elem){
+function hide(elem) {
   elem.style.display = 'none';
 }
 
@@ -109,8 +109,10 @@ function generateListResults() {
     var liEl = document.createElement('li');
     liEl.textContent = `${picArray[i].name} ${picArray[i].clicked} clicked and ${picArray[i].viewed} viewed`;
     ulEl.appendChild(liEl);
+    console.log('inside', picArray.length);
   }
   listLocation.appendChild(ulEl);
+  console.log('outside', picArray.length);
 }
 
 
@@ -125,16 +127,17 @@ function handleClick(event) {
       //console.log('this was clicked: ', picArray[i].title);
       //console.log(numberOfVotes, ' Number of Votes');
     }
-    if (numberOfVotes === 25) {
-      hide(listLocation);
-      //photos.removeEventListener('click', handleClick);
-      // makeClickedAndViewedArray(picArray);
-      // console.table('clicked array', clickedArray);
-      // console.table('viewed array', viewedArray);
-    }
+  }
+  if (numberOfVotes === 25) {
+    hide(photos);
+    console.log('something silly');
+    generateListResults();
+    //photos.removeEventListener('click', handleClick);
+    makeClickedAndViewedArray(picArray);
+    console.table('clicked array', clickedArray);
+    console.table('viewed array', viewedArray);
   }
   generateImages();
-  generateListResults();
 }
 
 
