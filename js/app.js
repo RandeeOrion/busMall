@@ -66,7 +66,7 @@ function generateImages() {
   picOne.src = picArray[indexOne].src;
   picOne.title = picArray[indexOne].title;
   picOne.alt = picArray[indexOne].title;
-  //descriptorOne.textContent = picArray[indexOne].title;
+  // descriptorOne.textContent = picArray[indexOne].title;
   picArray[indexOne].viewed++;
   // console.log('picOne: ', viewed);
 
