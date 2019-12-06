@@ -8,6 +8,7 @@ var photos = document.getElementById('photos');
 // var descriptorTwo = document.getElementById('descriptorTwo');
 // var descriptorThree = document.getElementById('descriptorThree');
 var listLocation = document.getElementById('list');
+var instructions = document.getElementById('instructions');
 
 var picArray = [];
 var numberOfVotes = 0;
@@ -32,26 +33,31 @@ function randomIndex(max) {
 }
 
 function createPhotoArray() {
-  new Picture('bag', 'R2D2 suitcase', 'R2D2 Suitcase');
-  new Picture('banana', 'Banana Cutter', 'Banana Cutter');
-  new Picture('bathroom', 'Watch your iPad while in the loo without having to clean bathroom germs off it!', 'Bathroom iPad');
-  new Picture('boots', 'Open toed rain boots. All your fashion dreams come true!', 'Rain Boots');
-  new Picture('breakfast', 'Bacon, eggs, toast and coffee. The only way this could get better is if we made a remote for it.', 'Breakfast');
-  new Picture('bubblegum', 'Meatball gumballs. Need we say more?', 'Bubblegum');
-  new Picture('chair', 'Finally! The chair you have always been looking for, for when your "favorite" brother-inlaw comes to visit.', 'Chair');
-  new Picture('cthulhu', 'A creature and her human pet.', 'Cthulhu');
-  new Picture('dog-duck', 'Turn your pooch into the duck she thinks she is.', 'Dog-Duck');
-  new Picture('dragon', 'Mmmm... dragon meat.', 'Dragon Meat');
-  new Picture('pen', 'Help the student in your life get work done while hse eats with pen utensils!', 'Utensil Pens');
-  new Picture('pet-sweep', 'Are you dogs always leaving hair around tht you have to sweep up? Not anymore! PET SWEEP!', 'Pet-sweep');
-  new Picture('scissors', 'Those loathsome connected pizza slices will be no more!', 'Pizza-Scissors');
-  new Picture('shark', 'Because who does not want to wake to the image of being eaten by a shark? Shark Sleeping Bag!', 'Shark Sleepingbag');
-  new Picture('tauntaun', 'For everyone who ever wanted to be Luke Skywalker, this Tauntaun sleeping bag is for you.', 'Tauntaun Sleeping Bag');
-  new Picture('unicorn', 'Just be careful, because unicorns are so pure, whoever consumes this meat will only live but a half life.', 'Unicorn Meat');
-  new Picture('usb', 'For the sea loving computer nut in your life: Octopus USB.', 'USB Storage');
-  new Picture('water-can', 'The perfect cacti garden watering can for those who live in the rain forest.', 'Self Watering Can');
-  new Picture('wine-glass', 'Ever had friends over for drinks and needed a "Can one drive home?" test? Your problems are now solved with this wine glass.', 'Wine Glass');
-  new Picture('sweep', 'Its never too early to get your baby working for you. Introducing the baby sweeper onsie!', 'Baby Sweep');
+  var tomato = localStorage.getItem('potato');
+  if (tomato) {
+    picArray = JSON.parse(tomato);
+  } else {
+    new Picture('bag', 'R2D2 suitcase', 'R2D2 Suitcase');
+    new Picture('banana', 'Banana Cutter', 'Banana Cutter');
+    new Picture('bathroom', 'Watch your iPad while in the loo without having to clean bathroom germs off it!', 'Bathroom iPad');
+    new Picture('boots', 'Open toed rain boots. All your fashion dreams come true!', 'Rain Boots');
+    new Picture('breakfast', 'Bacon, eggs, toast and coffee. The only way this could get better is if we made a remote for it.', 'Breakfast');
+    new Picture('bubblegum', 'Meatball gumballs. Need we say more?', 'Bubblegum');
+    new Picture('chair', 'Finally! The chair you have always been looking for, for when your "favorite" brother-inlaw comes to visit.', 'Chair');
+    new Picture('cthulhu', 'A creature and her human pet.', 'Cthulhu');
+    new Picture('dog-duck', 'Turn your pooch into the duck she thinks she is.', 'Dog-Duck');
+    new Picture('dragon', 'Mmmm... dragon meat.', 'Dragon Meat');
+    new Picture('pen', 'Help the student in your life get work done while hse eats with pen utensils!', 'Utensil Pens');
+    new Picture('pet-sweep', 'Are you dogs always leaving hair around tht you have to sweep up? Not anymore! PET SWEEP!', 'Pet-sweep');
+    new Picture('scissors', 'Those loathsome connected pizza slices will be no more!', 'Pizza-Scissors');
+    new Picture('shark', 'Because who does not want to wake to the image of being eaten by a shark? Shark Sleeping Bag!', 'Shark Sleepingbag');
+    new Picture('tauntaun', 'For everyone who ever wanted to be Luke Skywalker, this Tauntaun sleeping bag is for you.', 'Tauntaun Sleeping Bag');
+    new Picture('unicorn', 'Just be careful, because unicorns are so pure, whoever consumes this meat will only live but a half life.', 'Unicorn Meat');
+    new Picture('usb', 'For the sea loving computer nut in your life: Octopus USB.', 'USB Storage');
+    new Picture('water-can', 'The perfect cacti garden watering can for those who live in the rain forest.', 'Self Watering Can');
+    new Picture('wine-glass', 'Ever had friends over for drinks and needed a "Can one drive home?" test? Your problems are now solved with this wine glass.', 'Wine Glass');
+    new Picture('sweep', 'Its never too early to get your baby working for you. Introducing the baby sweeper onsie!', 'Baby Sweep');
+  }
 }
 
 
@@ -118,6 +124,7 @@ function generateListResults() {
 }
 
 
+
 function handleClick(event) {
   //generateImages();
   var vote = event.target.title;
@@ -130,56 +137,55 @@ function handleClick(event) {
       //console.log(numberOfVotes, ' Number of Votes');
     }
   }
-  if (numberOfVotes === 25) {
+  if (numberOfVotes === 5) {
     hide(photos);
-    console.log('something silly');
+    hide(instructions);
     makeClickedAndViewedArray(picArray);
+    localStorage.setItem('potato', JSON.stringify(picArray));
+
+
     chartStuff();
     //generateListResults();
     //photos.removeEventListener('click', handleClick);
-    console.table('clicked array', clickedArray);
-    console.table('viewed array', viewedArray);
-    console.table('name array', nameArray);
   }
   generateImages();
 }
 
 
 function chartStuff() {
-  console.log('hello')
   var ctx = document.getElementById('chartLocation').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
-    data:  { 
+    data: {
       labels: nameArray,
       datasets: [{
         label: '# of Votes',
         data: clickedArray,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -206,37 +212,36 @@ function chartStuff() {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
-          
         ],
-        borderWidth: 1
+        borderWidth: 1.5
       }, {
         label: '# of Views',
         data: viewedArray,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -263,9 +268,8 @@ function chartStuff() {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
-          
         ],
-        borderWidth: 1
+        borderWidth: 1.5
       }]
     },
     options: {
