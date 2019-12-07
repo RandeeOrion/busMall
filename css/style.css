@@ -13,41 +13,30 @@ h1 {
   padding: 10px;
 }
 
-#img1 {
-  height: 200px;
-  padding: 5px;
-  padding-right: 10px;
-}
-
-#img2 {
-  height: 200px;
-  padding: 5px;
-}
-
-#img3 {
-  height: 200px;
-  padding: 5px;
-  padding-left: 10px;
-
-}
-
-/* #photoDescriptors {
+#photos {
   display: inline-block;
-  max-width: 250px;
-  height: auto;
-  text-align: center;
-} */
+}
+
+
 
 p {
   margin: auto;
-  text-align: center;
+  text-align: left;
   font-size: 20px;
   padding: 10px;
+  
 }
 
-#photos {
-  display: inline-block;
-  max-width: 1000px;
+img {
+  max-width: 200px;
   margin: auto;
   align-content: center;
+  padding: 10px;
+  
+}
+
+div > p {
+max-width: 200px;
+padding: 10px;
+
 }

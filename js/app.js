@@ -4,9 +4,9 @@ var picOne = document.getElementById('img1');
 var picTwo = document.getElementById('img2');
 var picThree = document.getElementById('img3');
 var photos = document.getElementById('photos');
-// var descriptorOne = document.getElementById('descriptorOne');
-// var descriptorTwo = document.getElementById('descriptorTwo');
-// var descriptorThree = document.getElementById('descriptorThree');
+var descriptorOne = document.getElementById('descriptorOne');
+var descriptorTwo = document.getElementById('descriptorTwo');
+var descriptorThree = document.getElementById('descriptorThree');
 var listLocation = document.getElementById('list');
 var instructions = document.getElementById('instructions');
 
@@ -66,7 +66,7 @@ function generateImages() {
   picOne.src = picArray[indexOne].src;
   picOne.title = picArray[indexOne].title;
   picOne.alt = picArray[indexOne].title;
-  // descriptorOne.textContent = picArray[indexOne].title;
+  descriptorOne.textContent = picArray[indexOne].title;
   picArray[indexOne].viewed++;
   // console.log('picOne: ', viewed);
 
@@ -77,7 +77,7 @@ function generateImages() {
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
-  // descriptorTwo.textContent = picArray[indexTwo].title;
+  descriptorTwo.textContent = picArray[indexTwo].title;
   picArray[indexTwo].viewed++;
 
   var indexThree = randomIndex(picArray.length);
@@ -86,7 +86,7 @@ function generateImages() {
   }
   picThree.src = picArray[indexThree].src;
   picThree.title = picArray[indexThree].title;
-  // descriptorThree.textContent = picArray[indexThree].title;
+  descriptorThree.textContent = picArray[indexThree].title;
   picThree.alt = picArray[indexThree].alt;
   picArray[indexThree].viewed++;
   //console.table(picArray);
@@ -137,7 +137,7 @@ function handleClick(event) {
       //console.log(numberOfVotes, ' Number of Votes');
     }
   }
-  if (numberOfVotes === 5) {
+  if (numberOfVotes === 25) {
     hide(photos);
     hide(instructions);
     makeClickedAndViewedArray(picArray);
