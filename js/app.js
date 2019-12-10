@@ -18,7 +18,7 @@ var nameArray = [];
 
 
 function Picture(src, title, name) {
-  this.src = `../img/${src}.jpg`;
+  this.src = `img/${src}.jpg`;
   this.title = title;
   this.alt = title;
   this.name = name;
